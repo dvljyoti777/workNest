@@ -1,0 +1,14 @@
+.topbar { position: sticky; z-index: 20; top: 0; display: flex; min-height: 72px; align-items: center; gap: 1rem; padding: 0 2rem; border-bottom: 1px solid var(--color-border); background: rgb(255 255 255 / 96%); backdrop-filter: blur(8px); }
+.menuButton { display: none; border: 0; color: #344054; background: transparent; font-size: 1.35rem; cursor: pointer; }
+.search { display: flex; width: min(420px, 46vw); align-items: center; gap: 0.6rem; padding: 0.65rem 0.8rem; border: 1px solid var(--color-border); border-radius: 0.6rem; color: #98a2b3; background: #fff; }
+.search:focus-within { border-color: #a5b4fc; box-shadow: 0 0 0 3px #eef2ff; }
+.search input { width: 100%; border: 0; outline: 0; color: var(--color-text); background: transparent; }
+.search input::placeholder { color: #98a2b3; }
+.actions { display: flex; align-items: center; gap: 0.85rem; margin-left: auto; }
+.iconButton, .profileButton { border: 0; background: transparent; cursor: pointer; }
+.iconButton { position: relative; display: grid; width: 40px; height: 40px; place-items: center; color: #475467; font-size: 1.35rem; }
+.notificationDot { position: absolute; top: 8px; right: 8px; width: 7px; height: 7px; border: 2px solid #fff; border-radius: 50%; background: #f04438; }
+.profileButton { display: flex; align-items: center; gap: 0.5rem; color: #344054; font-weight: 600; }
+.visuallyHidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (max-width: 767px) { .topbar { min-height: 64px; padding: 0 1rem; } .menuButton { display: block; } .search { flex: 1; width: auto; } .profileButton span { display: none; } }
+@media (max-width: 480px) { .search input::placeholder { color: transparent; } .actions { gap: 0.2rem; } }

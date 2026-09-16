@@ -1,0 +1,15 @@
+.card { padding: 1.5rem; border: 1px solid var(--color-border); border-radius: 0.85rem; background: #fff; }
+.heading, .person { display: flex; align-items: center; }
+.heading { justify-content: space-between; gap: 1rem; }
+.heading h2 { margin: 0; color: #101828; font-size: 1rem; }
+.heading p { margin: 0.3rem 0 0; color: var(--color-muted); font-size: 0.78rem; }
+.heading a { color: #4f46e5; font-size: 0.78rem; font-weight: 650; text-decoration: none; }
+.list { display: grid; gap: 1.15rem; margin: 1.5rem 0 0; padding: 0; list-style: none; }
+.person { gap: 0.6rem; }
+.initials { display: grid; width: 30px; height: 30px; flex: 0 0 auto; place-items: center; border-radius: 50%; background: #f2f4f7; font-size: 0.67rem; font-weight: 700; }
+.person strong { min-width: 0; flex: 1; overflow: hidden; color: #344054; font-size: 0.78rem; text-overflow: ellipsis; white-space: nowrap; }
+.person > span:last-child { color: #667085; font-size: 0.68rem; }
+.person .warning { color: #d92d20; font-weight: 650; }
+.track { height: 6px; margin: 0.55rem 0 0 2.55rem; overflow: hidden; border-radius: 999px; background: #f2f4f7; }
+.track span { display: block; height: 100%; border-radius: inherit; }
+.list small { display: block; margin: 0.25rem 0 0 2.55rem; color: #d92d20; font-size: 0.65rem; font-weight: 600; }
