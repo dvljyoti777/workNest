@@ -1,0 +1,6 @@
+.header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1.5rem; }
+.header p { margin: 0 0 .35rem; color: #635bff; font-size: .75rem; font-weight: 700; text-transform: uppercase; }
+.header h1 { margin: 0; color: #101828; font-size: clamp(1.65rem, 3vw, 2.1rem); }
+.header span { display: block; margin-top: .5rem; color: #667085; }
+.header button { padding: .7rem 1rem; border: 0; border-radius: .6rem; color: #fff; background: #635bff; font-weight: 650; cursor: pointer; }
+@media (max-width: 600px) { .header { flex-direction: column; } .header button { width: 100%; } }

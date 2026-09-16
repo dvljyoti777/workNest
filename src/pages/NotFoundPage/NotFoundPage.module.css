@@ -1,0 +1,5 @@
+.page { display: grid; min-height: 100vh; padding: 2rem; place-items: center; align-content: center; text-align: center; background: #f7f8fa; }
+.page p { margin: 0; color: #635bff; font-size: 4rem; font-weight: 800; }
+.page h1 { margin: .25rem 0; color: #101828; }
+.page span { color: #667085; }
+.page a { margin-top: 1.25rem; padding: .7rem 1rem; border-radius: .6rem; color: #fff; background: #635bff; font-weight: 650; text-decoration: none; }

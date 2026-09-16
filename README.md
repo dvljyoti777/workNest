@@ -3,7 +3,7 @@
 WorkNest is a React workspace dashboard prototype for project progress, recent activity, and team workload.
 
 **Documentation updated:** 2026-09-16  
-**Current status:** Frontend demo with local mock data. Backend and persistent project/task management are not implemented.
+**Current status:** Routed frontend demo with role-based fake authentication, project pages, and an in-memory task board. Backend and persistent project/task storage are not implemented.
 
 The phases below group the implementation currently present in this workspace. Git history is unavailable, so these are not verified historical delivery dates. Original creation dates are unknown; current files were reviewed on 2026-09-16.
 
@@ -24,10 +24,11 @@ Open the local URL printed by Vite. Use a Node.js version supported by the insta
 | `npm run build` | Production output in `dist/` |
 | `npm run preview` | Serve an existing production build locally |
 | `npm run lint` | Run ESLint |
+| `npm test` | Run the Vitest reducer test suite once |
 
 ## Technology and file structure
 
-Declared package versions: React/React DOM `^19.2.8`, Vite `^8.2.2`, React Vite plugin `^6.1.0`, ESLint `^10.9.0`. Exact dependency resolution is in `package-lock.json`. Components use JavaScript/JSX and CSS Modules, with shared global CSS variables.
+Declared package versions: React/React DOM `^19.2.8`, React Router DOM `^7.18.4`, Vite `^8.2.2`, Vitest `^5.0.1`, React Vite plugin `^6.1.0`, and ESLint `^10.9.0`. Exact dependency resolution is in `package-lock.json`. Components use JavaScript/JSX and CSS Modules, with shared global CSS variables.
 
 ```text
 workNest/
@@ -39,10 +40,18 @@ workNest/
       layout/               # AppShell, Sidebar, Topbar
       navigation/NavItem/   # Shared navigation item
       ui/Avatar/            # Initials or image avatar
+    auth/                   # Role-to-permission map
+    context/                # Authentication context and provider
     data/dashboardData.js   # Mock projects, activities, workload
     features/dashboard/     # Dashboard composition, styles, demo states
-    App.jsx                 # Navigation state and Escape handling
-    main.jsx                # React entry point
+    features/tasks/         # Kanban board, drawer, reducer, reducer tests
+    hooks/                  # Authentication context hook
+    layouts/                # Auth, workspace, and nested project layouts
+    pages/                  # Routed login/dashboard/project/fallback pages
+    routes/                 # Authentication and permission route guards
+    services/               # Local demo authentication service
+    App.jsx                 # Application route tree
+    main.jsx                # React, router, and auth-provider entry point
     index.css               # Global styling and theme variables
   index.html                # Document title, favicon, root element
   vite.config.js
@@ -80,7 +89,7 @@ Each component folder contains JSX and a matching CSS Module. Existing artwork i
 
 **Files:** `src/components/layout/`, `src/components/navigation/NavItem/`, `src/components/ui/Avatar/`.
 
-**Limitations:** Navigation links are hash placeholders. Search, notifications, profile menus, and New project do not have complete application workflows. The greeting/date and sample user are static.
+**Limitations:** Search, notifications, profile menus, and New project do not have complete application workflows. Some routes still display placeholder content.
 
 ### Phase 03 - Dashboard data and cards
 
@@ -131,6 +140,54 @@ Each component folder contains JSX and a matching CSS Module. Existing artwork i
 - Added screenshot requirements, capture instructions, verification results, and a future phase template.
 - Application source and dependencies were not changed for this documentation update.
 
+### Phase 06 - Routing, authentication, and permissions
+
+**Detected from Git working tree:** 2026-09-16. **Status:** Implemented locally; changes are not committed.
+
+- Added `BrowserRouter` and a nested React Router route tree for login, dashboard, projects, project sections, tasks, team, notifications, settings, and the 404 page.
+- Added a local demo login for `admin`, `manager`, `member`, and `viewer` roles. The selected session is stored in `localStorage` under `worknest_session`; no password or real server authentication is used.
+- Added `AuthProvider`, `AuthContext`, and `useAuth` to expose the current user, login/logout actions, authentication state, and permission checks.
+- Added protected and permission-aware route guards. Unauthenticated users go to `/login`; disallowed protected routes return to `/dashboard`.
+- Added a role-permission matrix. Admin receives all listed permissions; manager cannot access settings; member cannot manage project members or access settings; viewer sees dashboard and projects only.
+- Sidebar links are now real route links, active state comes from `NavLink`, inaccessible items are hidden, and Exit clears the demo session.
+- Topbar, sidebar, and dashboard greeting now use the logged-in demo user's name and role.
+- Added auth, dashboard, and nested project layouts. Mobile drawer/Escape handling moved into `DashboardLayout`.
+- Added login, dashboard, projects, project overview, placeholder, and not-found pages. Project member tabs are permission-aware.
+
+**Created files (25):** `src/auth/permissions.js`; `src/context/AuthContext.js`; `src/context/AuthProvider.jsx`; `src/hooks/useAuth.js`; three files in `src/routes/` and `src/services/`; six layout JSX/CSS files in `src/layouts/`; and twelve page JSX/CSS files in `src/pages/`.
+
+**Modified tracked files:** `src/App.jsx`, `src/main.jsx`, `src/components/layout/Sidebar/Sidebar.jsx`, `src/components/layout/Topbar/Topbar.jsx`, and `src/components/navigation/NavItem/NavItem.jsx`.
+
+### Phase 07 - Kanban task management
+
+**Detected from Git working tree:** 2026-09-16. **Status:** Implemented locally; changes are not committed.
+
+- Added a four-column Kanban board: Backlog, To do, In progress, and Done.
+- Seeded five in-memory demo tasks with title, description, status, priority, assignee, and due date.
+- Added task creation from the page or a specific column, editing in a side drawer, deletion, and left/right status movement.
+- Added required form validation for title, assignee, and due date. New task IDs use `crypto.randomUUID()`.
+- Added a reducer with immutable add, update, delete, and move actions.
+- Added five Vitest cases covering all reducer actions and unknown-action behavior.
+- Task changes last only for the current mounted browser session; refresh/navigation may reset them because storage/API persistence is not connected.
+
+**Created files (6):** `src/features/tasks/taskReducer.js`, `src/features/tasks/taskReducer.test.js`, and the JSX/CSS Module pairs under `src/features/tasks/TaskBoard/` and `src/features/tasks/TaskDrawer/`.
+
+### Phase 08 - Dependency and Git working-tree update
+
+**Detected:** 2026-09-16. **Status:** Local working tree contains uncommitted changes.
+
+- Added `react-router-dom` and `vitest`, plus the `npm test` script in `package.json`; `package-lock.json` changed with the resolved dependency tree.
+- Git comparison against `HEAD` (`ab0c57f`, `first commit`) reports 31 untracked source/style/test files and 7 modified tracked files before this README update.
+- This README is now also modified by the documentation update. No application files were staged or committed as part of documenting them.
+
+| Git state before this README edit | Files |
+| --- | --- |
+| Modified tracked files | `package.json`, `package-lock.json`, `src/App.jsx`, `src/main.jsx`, `Sidebar.jsx`, `Topbar.jsx`, `NavItem.jsx` |
+| Untracked files | 31 files under `src/auth/`, `src/context/`, `src/features/tasks/`, `src/hooks/`, `src/layouts/`, `src/pages/`, `src/routes/`, and `src/services/` |
+| Current branch/base | `main` at `ab0c57f` (`origin/main`) |
+
+The counts above are a dated snapshot. Run `git status --short --untracked-files=all` for the latest working-tree state.
+
 ## Screenshot details and register
 
 **Actual capture status:** Screenshots have not been captured or attached. Filenames below are planned locations, not existing image links. Capture targets do not imply completed visual testing.
@@ -146,6 +203,11 @@ Save future captures under `docs/screenshots/`. Retain earlier phase images when
 | S05 / 04 | `phase-04-dashboard-mobile.png` | 390 x 844 | Select Populated with navigation closed; full page showing single-column cards | Pending |
 | S06 / 04 | `phase-04-mobile-navigation.png` | 390 x 844 | Open menu; show navigation drawer, close button, user profile, and backdrop | Pending |
 | S07 / 03 | `phase-03-workload-alert.png` | 1440 x 1000 | Capture Team workload showing Sara Khan at 11/10 tasks with Over capacity label | Pending |
+| S08 / 06 | `phase-06-login-roles.png` | 1440 x 900 | Open `/login`; show the WorkNest brand panel and four demo role choices | Pending |
+| S09 / 06 | `phase-06-viewer-navigation.png` | 1440 x 1000 | Sign in as Viewer; show that only permitted Dashboard and Projects navigation entries are visible | Pending |
+| S10 / 06 | `phase-06-project-layout.png` | 1440 x 1000 | Sign in as Manager; open a project and capture Overview, Tasks, and Members tabs | Pending |
+| S11 / 07 | `phase-07-kanban-board.png` | 1440 x 1000 | Sign in as Manager; open My Tasks and capture all four columns and five seeded tasks | Pending |
+| S12 / 07 | `phase-07-task-drawer.png` | 1440 x 1000 | Open Add task or Edit; capture the drawer fields, actions, board, and backdrop | Pending |
 
 ### Capture and attach
 
@@ -177,17 +239,19 @@ Future screenshot attachment example:
 | --- | --- | --- |
 | 2026-09-16 | Source review | Descriptions and mock metrics checked against current files |
 | 2026-09-16 | `npm run lint` | Passed |
-| 2026-09-16 | `npm run build` | Passed on approved retry outside sandbox; initial attempt hit `spawn EPERM` |
+| 2026-09-16 | `npm test` after phases 06-08 | Passed: 1 test file, 5 reducer tests |
+| 2026-09-16 | `npm run build` after phases 06-08 | Passed: 73 modules transformed; production bundle generated |
 | 2026-09-16 | Browser interactions and screenshots | Not performed; captures pending |
 
-No automated test script is configured in `package.json`. Lint/build results do not confirm browser interactions or visual appearance.
+Vitest now covers the task reducer. Automated browser/component tests are not configured, so command results do not confirm routing interactions or visual appearance.
 
 ## Pending work / future phases
 
 These items are not completed features:
 
-- Real pages and routing for Projects, My Tasks, Team, Notifications, and Settings.
-- Project/task creation, editing, and persistence or backend integration.
+- Replace placeholder content for project tasks/members, Team, Notifications, and Settings.
+- Persist project/task changes or connect them to a backend API.
+- Replace role selection and fake local tokens with real authentication and server-authorized permissions.
 - Functional search, notifications, profile controls, and activity menus.
 - Live fetching with real loading/error/empty behavior.
 - Dynamic dates/user information, browser checks, and accessibility review.

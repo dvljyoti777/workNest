@@ -1,0 +1,5 @@
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.grid article { padding: 1.25rem; border: 1px solid #e4e7ec; border-radius: .75rem; background: #fff; }
+.grid p { margin: 0 0 .4rem; color: #667085; font-size: .75rem; }
+.grid strong { color: #101828; }
+@media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
