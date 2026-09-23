@@ -1,7 +1,14 @@
-.layout { display: grid; min-height: 100vh; grid-template-columns: minmax(320px, .85fr) minmax(420px, 1.15fr); background: #fff; }
-.brandPanel { display: grid; padding: clamp(2rem, 7vw, 6rem); align-content: center; color: #fff; background: linear-gradient(145deg, #292556, #635bff); }
-.logo { display: grid; width: 48px; height: 48px; place-items: center; border-radius: 14px; color: #4f46e5; background: #fff; font-size: 1.3rem; font-weight: 800; }
-.brandPanel h1 { margin: 1.5rem 0 .5rem; font-size: clamp(2rem, 4vw, 3.2rem); }
-.brandPanel p { max-width: 440px; margin: 0; color: #e0e7ff; line-height: 1.65; }
-.formPanel { display: grid; padding: 2rem; place-items: center; }
+.layout { display: grid; min-height: 100vh; grid-template-columns: minmax(360px, .95fr) minmax(460px, 1.05fr); background: #f7f9fc; }
+.brandPanel { display: flex; min-height: 100vh; padding: clamp(2rem, 5vw, 4.5rem); flex-direction: column; justify-content: space-between; overflow: hidden; color: #fff; background: radial-gradient(circle at 80% 20%, color-mix(in srgb, var(--color-primary) 68%, transparent), transparent 34%), linear-gradient(145deg, #031f43, var(--color-sidebar)); }
+.brand { display: flex; align-items: center; gap: .7rem; font-size: 1.05rem; font-weight: 800; }
+.logo { display: grid; width: 40px; height: 40px; place-items: center; border-radius: 12px; color: var(--color-primary); background: #fff; font-size: 1.1rem; font-weight: 850; }
+.message { position: relative; z-index: 1; }
+.kicker { color: #93c5fd !important; font-size: .72rem; font-weight: 750; letter-spacing: .1em; text-transform: uppercase; }
+.brandPanel h1 { max-width: 540px; margin: .8rem 0 1rem; font-size: clamp(2.1rem, 4.5vw, 4rem); line-height: 1.03; }
+.brandPanel p { max-width: 470px; margin: 0; color: #dbeafe; line-height: 1.65; }
+.brandPanel small { color: #9fb4cc; }
+.preview { display: flex; max-width: 430px; height: 100px; margin-top: 2rem; padding: 1rem; align-items: flex-end; gap: .7rem; border: 1px solid rgb(255 255 255 / 12%); border-radius: 1rem; background: rgb(255 255 255 / 7%); backdrop-filter: blur(8px); }
+.preview span { width: 31%; border-radius: .45rem .45rem .2rem .2rem; background: linear-gradient(#60a5fa, var(--color-primary)); }
+.preview span:nth-child(1) { height: 42%; }.preview span:nth-child(2) { height: 76%; }.preview span:nth-child(3) { height: 58%; }
+.formPanel { display: grid; padding: clamp(1.5rem, 5vw, 4rem); place-items: center; }
 @media (max-width: 760px) { .layout { grid-template-columns: 1fr; } .brandPanel { display: none; } .formPanel { padding: 1.25rem; } }

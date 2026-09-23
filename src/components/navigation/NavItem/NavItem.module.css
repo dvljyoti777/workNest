@@ -1,4 +1,4 @@
-.item { display: flex; align-items: center; gap: 0.75rem; min-height: 44px; padding: 0.65rem 0.75rem; border-radius: 0.65rem; color: #475467; font-size: 0.925rem; font-weight: 600; text-decoration: none; transition: color 160ms ease, background-color 160ms ease; }
-.item:hover { color: #344054; background: #f2f4f7; }
-.active, .active:hover { color: #4f46e5; background: #eef2ff; }
+.item { display: flex; align-items: center; gap: 0.75rem; min-height: 42px; padding: 0.6rem 0.75rem; border-radius: 0.5rem; color: #c4dbf3; font-size: 0.82rem; font-weight: 600; text-decoration: none; transition: color 160ms ease, background-color 160ms ease; }
+.item:hover { color: #fff; background: rgb(255 255 255 / 9%); }
+.active, .active:hover { color: #fff; background: var(--color-primary); box-shadow: 0 5px 14px rgb(0 0 0 / 16%); }
 .icon { display: grid; width: 22px; height: 22px; place-items: center; font-size: 1.1rem; }

@@ -1,0 +1,9 @@
+.layer { position: fixed; z-index: 70; inset: 0; display: grid; padding: 1rem; place-items: center; }
+.backdrop { position: absolute; inset: 0; width: 100%; border: 0; background: rgb(15 36 64 / 48%); }
+.modal { position: relative; z-index: 1; width: min(620px, 100%); max-height: calc(100vh - 2rem); overflow-y: auto; border-radius: .8rem; background: #fff; box-shadow: 0 24px 60px rgb(15 36 64 / 22%); }
+.modal > header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; padding: 1.2rem 1.4rem; border-bottom: 1px solid var(--color-border); }
+.modal header p { margin: 0 0 .2rem; color: var(--color-primary); font-size: .65rem; font-weight: 700; text-transform: uppercase; }
+.modal h2 { margin: 0; color: #122033; font-size: 1.05rem; }
+.modal header button { border: 0; color: #667085; background: transparent; font-size: 1.25rem; cursor: pointer; }
+.modal form { border: 0; border-radius: 0; box-shadow: none; }
+.error { margin: 1rem 1.4rem 0; padding: .7rem .8rem; border-radius: .5rem; color: #b42318; background: #fef3f2; font-size: .75rem; }

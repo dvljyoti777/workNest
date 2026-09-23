@@ -1,29 +1,12 @@
-.demoBar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 1.5rem; padding: 0.75rem 0.9rem; border: 1px solid #d9d6fe; border-radius: 0.75rem; background: #f4f3ff; }
-.demoBar > div:first-child { display: grid; gap: 0.15rem; }
-.demoBar strong { color: #3e3a8c; font-size: 0.78rem; }
-.demoBar span { color: #667085; font-size: 0.7rem; }
-.switcher { display: flex; padding: 0.2rem; border: 1px solid #d0d5dd; border-radius: 0.55rem; background: #fff; }
-.switcher button { padding: 0.42rem 0.7rem; border: 0; border-radius: 0.4rem; color: #667085; background: transparent; font-size: 0.72rem; font-weight: 650; text-transform: capitalize; cursor: pointer; }
-.switcher .active { color: #fff; background: #635bff; }
-.dashboard { display: grid; gap: 1.25rem; margin-top: 1.25rem; }
-.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
-.primaryGrid, .secondaryGrid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr); gap: 1.25rem; }
-.exercises { padding: 1.5rem; border-radius: 0.85rem; color: #eaecf0; background: #292556; }
-.exercises > p { margin: 0; color: #c7d7fe; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
-.exercises h2 { margin: 0.35rem 0 0; color: #fff; font-size: 1rem; }
-.exercises ol { display: grid; gap: 0.65rem; margin: 1rem 0 0; padding-left: 1.2rem; font-size: 0.76rem; line-height: 1.5; }
-.exercises code { padding: 0.1rem 0.3rem; border-radius: 0.25rem; color: #fff; background: rgb(255 255 255 / 12%); }
-.empty { display: grid; min-height: 400px; margin-top: 1.25rem; padding: 2rem; place-items: center; align-content: center; border: 1px dashed #cfd4dc; border-radius: 0.85rem; text-align: center; background: #fff; }
-.empty > span { display: grid; width: 50px; height: 50px; place-items: center; border-radius: 50%; color: #4f46e5; background: #eef2ff; font-size: 1.5rem; }
-.empty h2 { margin: 1rem 0 0; color: #101828; font-size: 1.05rem; }
-.empty p { max-width: 380px; margin: 0.45rem 0 1rem; color: #667085; font-size: 0.8rem; line-height: 1.5; }
-.empty button { padding: 0.6rem 0.9rem; border: 0; border-radius: 0.55rem; color: #fff; background: #635bff; font-weight: 650; cursor: pointer; }
-.loading { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 1.25rem; }
-.skeleton { min-height: 120px; border-radius: 0.85rem; background: linear-gradient(90deg, #eaecf0 25%, #f7f8fa 50%, #eaecf0 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; }
-.skeleton:nth-child(n + 5) { min-height: 300px; grid-column: span 2; }
-.skeleton:last-of-type { grid-column: span 4; min-height: 160px; }
-.visuallyHidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-@keyframes shimmer { to { background-position: -200% 0; } }
+.demoBar { display: flex; align-items: center; justify-content: flex-end; gap: .65rem; margin-top: 1rem; }
+.demoBar > span { color: #7b8797; font-size: .65rem; font-weight: 650; }
+.switcher { display: flex; padding: .15rem; border: 1px solid var(--color-border); border-radius: .45rem; background: #fff; }
+.switcher button { padding: .32rem .55rem; border: 0; border-radius: .32rem; color: #667085; background: transparent; font-size: .62rem; font-weight: 650; text-transform: capitalize; cursor: pointer; }
+.switcher .active { color: #fff; background: var(--color-primary); }
+.dashboard { display: grid; gap: 1rem; margin-top: .8rem; }
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .8rem; }
+.primaryGrid { display: grid; grid-template-columns: minmax(280px, .85fr) minmax(360px, 1.15fr); gap: 1rem; }
 @media (max-width: 1050px) { .stats { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 900px) { .primaryGrid, .secondaryGrid { grid-template-columns: 1fr; } }
-@media (max-width: 600px) { .demoBar { align-items: stretch; flex-direction: column; } .switcher { width: 100%; } .switcher button { flex: 1; } .stats, .loading { grid-template-columns: 1fr; } .skeleton:nth-child(n) { grid-column: span 1; } }
+@media (max-width: 900px) { .primaryGrid { grid-template-columns: 1fr; } }
+@media (max-width: 600px) { .demoBar { justify-content: space-between; } .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } .switcher button { padding-inline: .45rem; } }
+@media (max-width: 390px) { .stats { grid-template-columns: 1fr; } }

@@ -1,0 +1,6 @@
+.heading h1 { margin: 0; color: #101828; font-size: 2rem; }
+.heading p { color: #667085; }
+.card { display: grid; max-width: 620px; gap: 1rem; margin-top: 1.5rem; padding: 1.5rem; border: 1px solid #e4e7ec; border-radius: .8rem; background: #fff; }
+.card label { display: grid; gap: .4rem; color: #344054; font-size: .78rem; font-weight: 650; }
+.card input, .card select { padding: .7rem; border: 1px solid #d0d5dd; border-radius: .5rem; background: #fff; }
+.card button { justify-self: start; padding: .65rem .9rem; border: 0; border-radius: .55rem; color: #fff; background: var(--color-primary); font-weight: 650; cursor: pointer; }

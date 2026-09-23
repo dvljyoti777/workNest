@@ -1,10 +1,18 @@
 .pageHeader { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
-.pageHeader p { margin: 0 0 .3rem; color: #635bff; font-size: .72rem; font-weight: 700; text-transform: uppercase; }
+.pageHeader p { margin: 0 0 .3rem; color: var(--color-primary); font-size: .72rem; font-weight: 700; text-transform: uppercase; }
 .pageHeader h1 { margin: 0; color: #101828; font-size: 2rem; }
 .pageHeader span { display: block; margin-top: .4rem; color: #667085; font-size: .85rem; }
-.pageHeader > button { padding: .7rem 1rem; border: 0; border-radius: .6rem; color: #fff; background: #635bff; font-weight: 650; cursor: pointer; }
-.board { display: grid; grid-template-columns: repeat(4, minmax(250px, 1fr)); gap: 1rem; margin-top: 1.5rem; overflow-x: auto; padding-bottom: .5rem; align-items: start; }
-.column { padding: .8rem; border: 1px solid #e4e7ec; border-radius: .8rem; background: #f2f4f7; }
+.headerActions { display: flex; gap: .5rem; }
+.headerActions button { padding: .7rem .8rem; border: 1px solid #d0d5dd; border-radius: .6rem; color: #475467; background: #fff; font-weight: 650; cursor: pointer; }
+.headerActions .primaryButton { border-color: var(--color-primary); color: #fff; background: var(--color-primary); }
+.actionError { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 1rem; padding: .75rem 1rem; border-radius: .6rem; color: #b42318; background: #fef3f2; font-size: .78rem; }
+.actionError button { border: 0; color: #b42318; background: transparent; font-weight: 650; cursor: pointer; }
+.toolbar { display: flex; margin-top: 1.25rem; padding: .65rem; align-items: center; justify-content: flex-end; gap: .55rem; border: 1px solid var(--color-border); border-radius: .75rem; background: var(--color-surface); }
+.toolbar label span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.toolbar input { width: min(260px, 45vw); height: 36px; padding: 0 .75rem; border: 1px solid var(--color-border); border-radius: .5rem; color: var(--color-text); background: #fff; }
+.toolbar button { height: 36px; padding: 0 .75rem; border: 1px solid var(--color-border); border-radius: .5rem; color: var(--color-muted); background: #fff; cursor: pointer; }
+.board { display: grid; grid-template-columns: repeat(4, minmax(230px, 1fr)); gap: .8rem; margin-top: 1rem; overflow-x: auto; padding-bottom: .5rem; align-items: start; }
+.column { padding: .65rem; border: 1px solid #e4e7ec; border-radius: .8rem; background: #f7f8fa; }
 .column > header, .column > header div { display: flex; align-items: center; }
 .column > header { justify-content: space-between; gap: .5rem; padding: .15rem .2rem .8rem; }
 .column > header div { gap: .45rem; }
@@ -12,7 +20,7 @@
 .column h2 { margin: 0; color: #344054; font-size: .82rem; }
 .column header strong { display: grid; min-width: 22px; height: 22px; place-items: center; border-radius: 50%; color: #667085; background: #fff; font-size: .68rem; }
 .column > header button { width: 28px; height: 28px; border: 0; border-radius: .4rem; color: #475467; background: transparent; font-size: 1.1rem; cursor: pointer; }
-.taskList { display: grid; gap: .7rem; }
+.taskList { display: grid; min-height: 82px; gap: .6rem; }
 .empty { margin: .5rem; color: #98a2b3; font-size: .75rem; text-align: center; }
 .task { padding: .9rem; border: 1px solid #eaecf0; border-radius: .7rem; background: #fff; box-shadow: 0 1px 2px rgb(16 24 40 / 5%); }
 .taskTop, .details, .task footer { display: flex; align-items: center; justify-content: space-between; gap: .5rem; }
@@ -27,4 +35,4 @@
 .task footer { margin-top: .75rem; padding-top: .65rem; border-top: 1px solid #f2f4f7; color: #98a2b3; font-size: .62rem; }
 .task footer button { width: 28px; height: 25px; border: 1px solid #e4e7ec; border-radius: .35rem; color: #475467; background: #fff; cursor: pointer; }
 .task footer button:disabled { cursor: not-allowed; opacity: .35; }
-@media (max-width: 600px) { .pageHeader { flex-direction: column; } .pageHeader > button { width: 100%; } .board { margin-inline: -1rem; padding-inline: 1rem; } }
+@media (max-width: 600px) { .pageHeader { flex-direction: column; } .headerActions { width: 100%; flex-wrap: wrap; } .headerActions button { flex: 1; } .toolbar { justify-content: stretch; } .toolbar label { flex: 1; } .toolbar input { width: 100%; } .board { margin-inline: -1rem; padding-inline: 1rem; scroll-snap-type: x mandatory; } .column { scroll-snap-align: start; } }

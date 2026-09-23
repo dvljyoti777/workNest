@@ -1,0 +1,5 @@
+.badge { display: inline-flex; width: fit-content; padding: .25rem .5rem; border-radius: 999px; font-size: .64rem; font-weight: 750; line-height: 1; }
+.backlog { color: #344054; background: #f2f4f7; }
+.todo { color: #175cd3; background: #eff8ff; }
+.in_progress { color: #b54708; background: #fffaeb; }
+.done { color: #027a48; background: #ecfdf3; }

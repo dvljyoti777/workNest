@@ -1,5 +1,9 @@
 import { describe, expect, it } from 'vitest'
-import { initialTaskState, taskActionTypes, taskReducer } from './taskReducer'
+import { taskActionTypes, taskReducer } from './taskReducer'
+
+const firstTask = { id: 'task-1', title: 'First task', status: 'backlog' }
+const secondTask = { id: 'task-2', title: 'Second task', status: 'todo' }
+const initialTaskState = { tasks: [firstTask, secondTask] }
 
 describe('taskReducer', () => {
   it('ADD_TASK appends a task without mutating the previous state', () => {
@@ -10,6 +14,13 @@ describe('taskReducer', () => {
     expect(result.tasks).not.toBe(initialTaskState.tasks)
   })
 
+  it('SET_TASKS replaces the collection with a new array', () => {
+    const tasks = [{ id: 'loaded-task', title: 'Loaded task', status: 'todo' }]
+    const result = taskReducer(initialTaskState, { type: taskActionTypes.SET_TASKS, payload: tasks })
+    expect(result.tasks).toEqual(tasks)
+    expect(result.tasks).not.toBe(tasks)
+  })
+
   it('UPDATE_TASK replaces only the matching task', () => {
     const result = taskReducer(initialTaskState, { type: taskActionTypes.UPDATE_TASK, payload: { id: 'task-2', updates: { title: 'Updated copy' } } })
     expect(result.tasks[1].title).toBe('Updated copy')
@@ -18,9 +29,9 @@ describe('taskReducer', () => {
   })
 
   it('DELETE_TASK returns a new array without the selected task', () => {
-    const result = taskReducer(initialTaskState, { type: taskActionTypes.DELETE_TASK, payload: { id: 'task-3' } })
-    expect(result.tasks.some((task) => task.id === 'task-3')).toBe(false)
-    expect(initialTaskState.tasks.some((task) => task.id === 'task-3')).toBe(true)
+    const result = taskReducer(initialTaskState, { type: taskActionTypes.DELETE_TASK, payload: { id: 'task-2' } })
+    expect(result.tasks.some((task) => task.id === 'task-2')).toBe(false)
+    expect(initialTaskState.tasks.some((task) => task.id === 'task-2')).toBe(true)
   })
 
   it('MOVE_TASK changes only status on the matching task', () => {

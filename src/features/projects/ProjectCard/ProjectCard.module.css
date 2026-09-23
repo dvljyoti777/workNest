@@ -1,0 +1,23 @@
+.card { position: relative; display: grid; min-width: 0; grid-template-columns: auto 1fr auto; gap: .85rem; padding: 1rem; border: 1px solid var(--color-border); border-radius: .7rem; background: #fff; box-shadow: 0 2px 8px rgb(15 36 64 / 4%); }
+.icon { display: grid; width: 34px; height: 34px; place-items: center; border-radius: .5rem; color: var(--project-color); background: color-mix(in srgb, var(--project-color) 12%, white); font-size: .75rem; font-weight: 800; }
+.content { min-width: 0; }
+.titleRow { display: flex; align-items: flex-start; justify-content: space-between; gap: .5rem; }
+.titleRow h2 { margin: .2rem 0 0; color: #122033; font-size: .85rem; }
+.status { color: #7b8797; font-size: .58rem; font-weight: 700; text-transform: capitalize; }
+.actions { display: flex; gap: .25rem; }
+.actions button { padding: .2rem .35rem; border: 0; color: #667085; background: transparent; font-size: .6rem; cursor: pointer; }
+.actions button:last-child { color: #d92d20; }
+.description { display: -webkit-box; overflow: hidden; margin: .55rem 0; color: #667085; font-size: .68rem; line-height: 1.45; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.meta, .footer { display: flex; align-items: center; justify-content: space-between; gap: .6rem; }
+.meta { color: #7b8797; font-size: .6rem; }
+.meta strong { color: #475467; }
+.footer { margin-top: .8rem; }
+.footer > a { color: var(--color-primary); font-size: .65rem; font-weight: 700; text-decoration: none; }
+.members { display: flex; padding-left: 5px; }
+.members span, .members small { display: grid; width: 24px; height: 24px; margin-left: -5px; place-items: center; border: 2px solid #fff; border-radius: 50%; color: #24517e; background: #dceaf8; font-size: .52rem; font-weight: 750; }
+.progress { position: relative; display: grid; width: 54px; height: 54px; place-items: center; align-self: center; border-radius: 50%; background: conic-gradient(var(--project-color, var(--color-primary)) calc(var(--progress) * 1%), #e7edf5 0); }
+.progress::before { position: absolute; width: 42px; height: 42px; border-radius: 50%; background: #fff; content: ''; }
+.progress span { position: relative; z-index: 1; color: #344054; font-size: .62rem; font-weight: 750; }
+.list { grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; }
+.list .description { max-width: 600px; }
+@media (max-width: 480px) { .card { grid-template-columns: auto 1fr; } .progress { grid-column: 1 / -1; width: 100%; height: 7px; border-radius: 999px; background: linear-gradient(to right, var(--project-color) calc(var(--progress) * 1%), #e7edf5 0); } .progress::before, .progress span { display: none; } }

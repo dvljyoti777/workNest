@@ -1,21 +1,18 @@
+import { Link } from 'react-router-dom'
 import styles from './WorkloadSummary.module.css'
 
 function WorkloadSummary({ members }) {
+  const highestCapacity = Math.max(...members.map((member) => member.capacity), 1)
+
   return (
     <section className={styles.card} aria-labelledby="workload-title">
-      <div className={styles.heading}><div><h2 id="workload-title">Team workload</h2><p>Assigned tasks against capacity</p></div><a href="#team">Manage</a></div>
-      <ul className={styles.list}>
+      <header><div><h2 id="workload-title">Team workload</h2><p>Assigned tasks compared with capacity</p></div><div className={styles.legend}><span><i className={styles.assignedDot} />Assigned</span><span><i className={styles.capacityDot} />Capacity</span></div><Link to="/team">View team</Link></header>
+      <ul className={styles.chart}>
         {members.map((member) => {
-          const load = member.capacity === 0 ? 0 : Math.round((member.assigned / member.capacity) * 100)
-          const barWidth = Math.min(load, 100)
-          const isOverCapacity = load > 100
-          return (
-            <li key={member.id}>
-              <div className={styles.person}><span className={styles.initials} style={{ color: member.color }}>{member.initials}</span><strong>{member.name}</strong><span className={isOverCapacity ? styles.warning : ''}>{member.assigned}/{member.capacity} tasks</span></div>
-              <div className={styles.track} aria-label={`${member.name}: ${load}% workload`}><span style={{ width: `${barWidth}%`, backgroundColor: isOverCapacity ? '#f04438' : member.color }} /></div>
-              {isOverCapacity && <small>Over capacity</small>}
-            </li>
-          )
+          const assignedWidth = Math.min((member.assigned / highestCapacity) * 100, 100)
+          const capacityWidth = (member.capacity / highestCapacity) * 100
+          const isOverCapacity = member.assigned > member.capacity
+          return <li key={member.id}><div className={styles.member}><strong>{member.name}</strong><span className={isOverCapacity ? styles.warning : ''}>{member.assigned}/{member.capacity}</span></div><div className={styles.bars} role="progressbar" aria-valuemin="0" aria-valuemax={member.capacity} aria-valuenow={member.assigned} aria-label={`${member.name}: ${member.assigned} assigned of ${member.capacity} capacity`}><span className={styles.capacity} style={{ width: `${capacityWidth}%` }} /><span className={`${styles.assigned} ${isOverCapacity ? styles.over : ''}`} style={{ width: `${assignedWidth}%` }} /></div></li>
         })}
       </ul>
     </section>

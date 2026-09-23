@@ -1,0 +1,10 @@
+.loading, .message { display: grid; min-height: 330px; margin-top: 1.25rem; padding: 2rem; place-items: center; align-content: center; border: 1px dashed #d0d5dd; border-radius: .85rem; text-align: center; background: #fff; }
+.spinner { width: 34px; height: 34px; margin-bottom: .8rem; border: 3px solid var(--color-primary-soft); border-top-color: var(--color-primary); border-radius: 50%; animation: spin .8s linear infinite; }
+.loading strong, .message h2 { color: #101828; }
+.loading p, .message p { max-width: 420px; margin: .4rem 0 0; color: #667085; font-size: .82rem; line-height: 1.5; }
+.errorIcon, .emptyIcon { display: grid; width: 48px; height: 48px; margin-bottom: .7rem; place-items: center; border-radius: 50%; font-weight: 800; }
+.errorIcon { color: #b42318; background: #fef3f2; }
+.emptyIcon { color: var(--color-primary); background: var(--color-primary-soft); }
+.message h2 { margin: 0; font-size: 1.05rem; }
+.message button { margin-top: 1rem; padding: .65rem .9rem; border: 0; border-radius: .55rem; color: #fff; background: var(--color-primary); font-weight: 650; cursor: pointer; }
+@keyframes spin { to { transform: rotate(360deg); } }

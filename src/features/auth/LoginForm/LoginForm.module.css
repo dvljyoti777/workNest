@@ -1,0 +1,19 @@
+.form { display: grid; gap: 1rem; }
+.field { display: grid; gap: .42rem; }
+.field label, .labelRow label { color: #344054; font-size: .76rem; font-weight: 700; }
+.field > input, .password { width: 100%; border: 1px solid var(--color-border); border-radius: .6rem; background: #fff; }
+.field > input { height: 42px; padding: 0 .78rem; color: var(--color-text); }
+.field > input:focus, .password:focus-within { border-color: var(--color-primary); outline: 3px solid color-mix(in srgb, var(--color-primary) 15%, transparent); }
+.labelRow { display: flex; align-items: center; justify-content: space-between; }
+.labelRow span { color: var(--color-primary); font-size: .68rem; font-weight: 700; }
+.password { display: flex; align-items: center; overflow: hidden; }
+.password input { min-width: 0; height: 40px; padding: 0 .78rem; flex: 1; border: 0; outline: 0; color: var(--color-text); }
+.password button { padding: .5rem .7rem; border: 0; color: var(--color-muted); background: none; font-size: .68rem; font-weight: 700; cursor: pointer; }
+.remember { display: flex; gap: .45rem; align-items: center; color: var(--color-muted); font-size: .72rem; }
+.remember input { accent-color: var(--color-primary); }
+.rolePanel { padding-top: .25rem; }
+.error { margin: 0; color: #d92d20; font-size: .75rem; }
+.submit { width: 100%; min-height: 43px; border: 0; border-radius: .6rem; color: #fff; background: var(--color-primary); font-weight: 750; cursor: pointer; box-shadow: 0 8px 18px color-mix(in srgb, var(--color-primary) 22%, transparent); }
+.submit:hover { background: var(--color-primary-hover); }
+.submit:disabled { cursor: wait; opacity: .65; }
+.demoNote { margin: -.25rem 0 0; color: var(--color-muted); font-size: .68rem; text-align: center; }

@@ -1,0 +1,5 @@
+.viewport { position: fixed; z-index: 100; right: 1rem; bottom: 1rem; display: grid; width: min(360px, calc(100vw - 2rem)); gap: .6rem; pointer-events: none; }
+.toast { display: grid; grid-template-columns: 24px 1fr 24px; gap: .6rem; min-height: 54px; padding: .75rem; align-items: center; border: 1px solid; border-radius: .65rem; background: var(--color-surface); box-shadow: 0 12px 34px rgb(15 23 42 / 15%); pointer-events: auto; animation: enter .22s ease-out; }.toast > span { display: grid; width: 22px; height: 22px; place-items: center; border-radius: 50%; font-weight: 800; }.toast strong { font-size: .76rem; }.toast button { border: 0; color: currentColor; background: transparent; font-size: 1rem; cursor: pointer; opacity: .65; }
+.success { border-color: #abefc6; color: #05603a; background: #ecfdf3; }.success > span { color: #fff; background: #12b76a; }.error { border-color: #fecdca; color: #b42318; background: #fef3f2; }.error > span { color: #fff; background: #f04438; }
+@keyframes enter { from { transform: translateY(10px); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .toast { animation: none; } }

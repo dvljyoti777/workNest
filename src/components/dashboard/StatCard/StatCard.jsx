@@ -1,14 +1,11 @@
 import styles from './StatCard.module.css'
 
-function StatCard({ label, value, helper, icon, tone = 'purple' }) {
+function StatCard({ label, value, trend, trendDirection = 'up', tone = 'blue' }) {
   return (
-    <article className={styles.card}>
-      <div className={`${styles.icon} ${styles[tone]}`} aria-hidden="true">{icon}</div>
-      <div>
-        <p className={styles.label}>{label}</p>
-        <strong className={styles.value}>{value}</strong>
-        {helper && <p className={styles.helper}>{helper}</p>}
-      </div>
+    <article className={`${styles.card} ${styles[tone]}`}>
+      <p className={styles.label}>{label}</p>
+      <strong className={styles.value}>{value}</strong>
+      {trend && <p className={`${styles.trend} ${styles[trendDirection]}`}><span aria-hidden="true">{trendDirection === 'down' ? '↓' : '↑'}</span>{trend}</p>}
     </article>
   )
 }

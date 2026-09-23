@@ -1,0 +1,7 @@
+.header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 1.5rem; }
+.header p { margin: 0 0 .35rem; color: var(--color-primary); font-size: .72rem; font-weight: 700; text-transform: uppercase; }
+.header h1 { margin: 0; color: #101828; font-size: 2rem; }
+.header span { display: block; margin-top: .45rem; color: #667085; }
+.header a { padding: .6rem .8rem; border: 1px solid #d0d5dd; border-radius: .55rem; color: #344054; background: #fff; font-size: .8rem; font-weight: 650; text-decoration: none; }
+.error { max-width: 620px; margin-bottom: 1rem; padding: .75rem 1rem; border-radius: .55rem; color: #b42318; background: #fef3f2; font-size: .8rem; }
+@media (max-width: 600px) { .header { flex-direction: column; } }

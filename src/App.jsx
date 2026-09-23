@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import AuthLayout from './layouts/AuthLayout/AuthLayout'
 import DashboardLayout from './layouts/DashboardLayout/DashboardLayout'
@@ -10,7 +11,15 @@ import NotFoundPage from './pages/NotFoundPage/NotFoundPage'
 import PlaceholderPage from './pages/PlaceholderPage/PlaceholderPage'
 import ProjectOverviewPage from './pages/ProjectOverviewPage/ProjectOverviewPage'
 import ProjectsPage from './pages/ProjectsPage/ProjectsPage'
+import NewProjectPage from './pages/NewProjectPage/NewProjectPage'
 import TaskBoard from './features/tasks/TaskBoard/TaskBoard'
+import TeamPage from './pages/TeamPage/TeamPage'
+import RouteFallback from './components/ui/RouteFallback/RouteFallback'
+
+const ReportsPage = lazy(() => import('./pages/ReportsPage/ReportsPage'))
+const SettingsPage = lazy(() => import('./pages/SettingsPage/SettingsPage'))
+
+const lazyRoute = (page) => <Suspense fallback={<RouteFallback />}>{page}</Suspense>
 
 function App() {
   return (
@@ -21,6 +30,9 @@ function App() {
           <Route index element={<Navigate to="/dashboard" replace />} />
           <Route path="dashboard" element={<DashboardPage />} />
           <Route path="projects" element={<ProjectsPage />} />
+          <Route element={<PermissionRoute permission="projects:create" />}>
+            <Route path="projects/new" element={<NewProjectPage />} />
+          </Route>
           <Route path="projects/:projectId" element={<ProjectLayout />}>
             <Route index element={<Navigate to="overview" replace />} />
             <Route path="overview" element={<ProjectOverviewPage />} />
@@ -30,10 +42,13 @@ function App() {
             </Route>
           </Route>
           <Route element={<PermissionRoute permission="tasks:view" />}><Route path="tasks" element={<TaskBoard />} /></Route>
-          <Route path="team" element={<PlaceholderPage title="Team" description="View your team and their workload." />} />
+          <Route element={<PermissionRoute permission="team:view" />}><Route path="team" element={<TeamPage />} /></Route>
           <Route path="notifications" element={<PlaceholderPage title="Notifications" description="Your latest workspace notifications." />} />
+          <Route element={<PermissionRoute permission="reports:view" />}>
+            <Route path="reports" element={lazyRoute(<ReportsPage />)} />
+          </Route>
           <Route path="settings" element={<PermissionRoute permission="settings:view" />}>
-            <Route index element={<PlaceholderPage title="Settings" description="Manage workspace preferences and permissions." />} />
+            <Route index element={lazyRoute(<SettingsPage />)} />
           </Route>
         </Route>
       </Route>

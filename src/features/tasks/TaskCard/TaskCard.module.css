@@ -1,0 +1,13 @@
+.card { padding: .8rem; border: 1px solid #e5eaf1; border-radius: .7rem; background: var(--color-surface); box-shadow: 0 2px 7px rgb(16 24 40 / 5%); transition: transform .18s ease, box-shadow .18s ease; }
+.card:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgb(16 24 40 / 9%); }
+.openButton { display: block; width: 100%; padding: 0; border: 0; color: inherit; background: none; text-align: left; cursor: pointer; }
+.priority { display: inline-flex; padding: .2rem .42rem; border-radius: .35rem; font-size: .58rem; font-weight: 750; text-transform: capitalize; }
+.low { color: #027a48; background: #ecfdf3; }.medium { color: #175cd3; background: #eff8ff; }.high { color: #b42318; background: #fef3f2; }
+.openButton h3 { margin: .65rem 0 .3rem; color: var(--color-text); font-size: .82rem; line-height: 1.35; }
+.openButton p { display: -webkit-box; overflow: hidden; margin: 0; color: var(--color-muted); font-size: .68rem; line-height: 1.45; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.meta, .card footer { display: flex; align-items: center; justify-content: space-between; }
+.meta { margin-top: .75rem; color: var(--color-muted); font-size: .64rem; }
+.overdue { color: #d92d20; font-weight: 700; }
+.card footer { margin-top: .65rem; padding-top: .55rem; border-top: 1px solid #f0f2f5; color: #98a2b3; font-size: .6rem; }
+.card footer button { width: 27px; height: 24px; border: 1px solid var(--color-border); border-radius: .35rem; color: var(--color-text); background: var(--color-surface); cursor: pointer; }
+.card footer button:disabled { cursor: not-allowed; opacity: .3; }

@@ -1,13 +1,13 @@
-.card { padding: 1.5rem; border: 1px solid var(--color-border); border-radius: 0.85rem; background: #fff; }
+.card { min-height: 260px; padding: 1.2rem; border: 1px solid var(--color-border); border-radius: .75rem; background: #fff; box-shadow: 0 2px 8px rgb(15 36 64 / 4%); }
 .heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
-.heading h2 { margin: 0; color: #101828; font-size: 1rem; }
-.heading p { margin: 0.3rem 0 0; color: var(--color-muted); font-size: 0.78rem; }
-.heading button { border: 0; color: #667085; background: transparent; cursor: pointer; }
-.list { display: grid; gap: 1.15rem; margin: 1.5rem 0 0; padding: 0; list-style: none; }
+.heading h2 { margin: 0; color: #122033; font-size: .9rem; }
+.heading p { margin: .25rem 0 0; color: #7b8797; font-size: .68rem; }
+.heading > a { color: var(--color-primary); font-size: .68rem; font-weight: 700; text-decoration: none; }
+.list { display: grid; gap: .9rem; margin: 1.1rem 0 0; padding: 0; list-style: none; }
 .item { position: relative; display: flex; gap: 0.8rem; }
-.item:not(:last-child)::before { position: absolute; z-index: 0; top: 34px; bottom: -18px; left: 15px; width: 1px; background: #e4e7ec; content: ''; }
+.item:not(:last-child)::before { position: absolute; z-index: 0; top: 31px; bottom: -15px; left: 15px; width: 1px; background: #e4eaf2; content: ''; }
 .item > span { position: relative; z-index: 1; }
-.item p { margin: 0; color: #667085; font-size: 0.78rem; line-height: 1.45; }
+.item p { margin: 0; color: #667085; font-size: .72rem; line-height: 1.45; }
 .item strong { color: #344054; }
-.item a { color: #4f46e5; font-weight: 600; text-decoration: none; }
-.item time { display: block; margin-top: 0.2rem; color: #98a2b3; font-size: 0.68rem; }
+.item p span { color: var(--color-primary); font-weight: 650; }
+.item time { display: block; margin-top: .15rem; color: #98a2b3; font-size: .62rem; }

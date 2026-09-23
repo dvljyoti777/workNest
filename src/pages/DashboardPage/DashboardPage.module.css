@@ -1,6 +1,6 @@
 .header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1.5rem; }
-.header p { margin: 0 0 .35rem; color: #635bff; font-size: .75rem; font-weight: 700; text-transform: uppercase; }
+.header p { margin: 0 0 .35rem; color: var(--color-primary); font-size: .75rem; font-weight: 700; text-transform: uppercase; }
 .header h1 { margin: 0; color: #101828; font-size: clamp(1.65rem, 3vw, 2.1rem); }
-.header span { display: block; margin-top: .5rem; color: #667085; }
-.header button { padding: .7rem 1rem; border: 0; border-radius: .6rem; color: #fff; background: #635bff; font-weight: 650; cursor: pointer; }
-@media (max-width: 600px) { .header { flex-direction: column; } .header button { width: 100%; } }
+.header span { display: block; margin-top: .4rem; color: #667085; font-size: .82rem; }
+.header a { padding: .7rem 1rem; border-radius: .5rem; color: #fff; background: var(--color-primary); font-weight: 650; text-decoration: none; box-shadow: 0 4px 12px rgb(11 99 230 / 18%); }
+@media (max-width: 600px) { .header { flex-direction: column; } .header a { width: 100%; text-align: center; } }

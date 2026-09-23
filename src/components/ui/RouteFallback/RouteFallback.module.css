@@ -1,0 +1,4 @@
+.fallback { display: grid; min-height: 280px; place-items: center; align-content: center; color: #667085; }
+.fallback span { width: 32px; height: 32px; border: 3px solid #e0e7ff; border-top-color: #635bff; border-radius: 50%; animation: spin .8s linear infinite; }
+.fallback p { margin: .7rem 0 0; font-size: .8rem; }
+@keyframes spin { to { transform: rotate(360deg); } }

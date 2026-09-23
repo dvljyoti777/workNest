@@ -1,0 +1,2 @@
+.select { min-width: 108px; height: 34px; padding: 0 1.8rem 0 .65rem; border: 1px solid var(--color-border); border-radius: .5rem; color: var(--color-text); background: var(--color-surface); font-size: .72rem; text-transform: capitalize; }
+.select:disabled { border-color: transparent; color: var(--color-muted); background: transparent; opacity: 1; }

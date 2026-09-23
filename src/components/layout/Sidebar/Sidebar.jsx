@@ -12,6 +12,7 @@ const navigation = [
 ]
 const accountNavigation = [
   { label: 'Notifications', to: '/notifications', icon: 'N', permission: 'notifications:view' },
+  { label: 'Reports', to: '/reports', icon: 'R', permission: 'reports:view' },
   { label: 'Settings', to: '/settings', icon: 'S', permission: 'settings:view' },
 ]
 
