@@ -6,7 +6,8 @@ export const colorThemes = [
 ]
 
 export const fontThemes = [
-  { id: 'inter', label: 'Inter', value: "Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif" },
-  { id: 'manrope', label: 'Manrope', value: "Manrope, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif" },
-  { id: 'system', label: 'System', value: "system-ui, -apple-system, 'Segoe UI', sans-serif" },
+  { id: 'inter', label: 'Modern UI', value: "'Segoe UI', Arial, sans-serif" },
+  { id: 'manrope', label: 'Rounded', value: "'Trebuchet MS', Arial, sans-serif" },
+  { id: 'system', label: 'System', value: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" },
+  { id: 'editorial', label: 'Editorial', value: "Georgia, 'Times New Roman', serif" },
 ]

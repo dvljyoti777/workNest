@@ -36,9 +36,19 @@ describe('taskReducer', () => {
 
   it('MOVE_TASK changes only status on the matching task', () => {
     const result = taskReducer(initialTaskState, { type: taskActionTypes.MOVE_TASK, payload: { id: 'task-1', status: 'done' } })
-    expect(result.tasks[0]).toEqual({ ...initialTaskState.tasks[0], status: 'done' })
-    expect(result.tasks[0]).not.toBe(initialTaskState.tasks[0])
-    expect(result.tasks[1]).toBe(initialTaskState.tasks[1])
+    const movedTask = result.tasks.find((task) => task.id === 'task-1')
+    expect(movedTask).toEqual({ ...initialTaskState.tasks[0], status: 'done' })
+    expect(movedTask).not.toBe(initialTaskState.tasks[0])
+    expect(result.tasks.find((task) => task.id === 'task-2')).toBe(initialTaskState.tasks[1])
+  })
+
+  it('MOVE_TASK inserts a card at the requested position without mutating the source', () => {
+    const thirdTask = { id: 'task-3', title: 'Third task', status: 'todo' }
+    const state = { tasks: [...initialTaskState.tasks, thirdTask] }
+    const result = taskReducer(state, { type: taskActionTypes.MOVE_TASK, payload: { id: 'task-1', status: 'todo', targetIndex: 1 } })
+
+    expect(result.tasks.filter((task) => task.status === 'todo').map((task) => task.id)).toEqual(['task-2', 'task-1', 'task-3'])
+    expect(state.tasks.map((task) => task.status)).toEqual(['backlog', 'todo', 'todo'])
   })
 
   it('returns the same state for an unknown action', () => {

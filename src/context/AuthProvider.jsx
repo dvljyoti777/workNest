@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { hasPermission } from '../auth/permissions'
 import { authService } from '../services/authService'
 import { AuthContext } from './AuthContext'
@@ -14,6 +14,12 @@ export function AuthProvider({ children }) {
     await authService.logout()
     setSession(null)
   }
+  const changePassword = (payload) => authService.changePassword(payload)
   const can = (permission) => hasPermission(session?.user.role, permission)
-  return <AuthContext.Provider value={{ user: session?.user ?? null, isAuthenticated: Boolean(session), login, logout, can }}>{children}</AuthContext.Provider>
+  useEffect(() => {
+    const clearUnauthorizedSession = () => setSession(null)
+    window.addEventListener('worknest:unauthorized', clearUnauthorizedSession)
+    return () => window.removeEventListener('worknest:unauthorized', clearUnauthorizedSession)
+  }, [])
+  return <AuthContext.Provider value={{ user: session?.user ?? null, isAuthenticated: Boolean(session), login, logout, changePassword, can }}>{children}</AuthContext.Provider>
 }

@@ -2,4 +2,5 @@
 .grid article { padding: 1.25rem; border: 1px solid #e4e7ec; border-radius: .75rem; background: #fff; }
 .grid p { margin: 0 0 .4rem; color: #667085; font-size: .75rem; }
 .grid strong { color: #101828; }
+.grid article > span { display: block; margin-top: .35rem; color: var(--color-muted); font-size: .65rem; }
 @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }

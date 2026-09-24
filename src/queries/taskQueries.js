@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { taskService } from '../services/taskService'
 import { projectKeys, taskKeys } from './queryKeys'
+import { moveTaskInList } from '../lib/taskOrdering'
 
 const requestOptions = (mode) => ({ empty: mode === 'empty', shouldFail: mode === 'error' })
 
@@ -37,11 +38,11 @@ export function useTaskMutations(mode = 'populated') {
   })
 
   const moveTask = useMutation({
-    mutationFn: ({ id, status }) => taskService.moveTask(id, status),
-    onMutate: async ({ id, status }) => {
+    mutationFn: ({ id, status, targetIndex }) => taskService.moveTask(id, status, targetIndex),
+    onMutate: async ({ id, status, targetIndex }) => {
       await queryClient.cancelQueries({ queryKey: activeListKey })
       const previousTasks = queryClient.getQueryData(activeListKey)
-      queryClient.setQueryData(activeListKey, (currentTasks = []) => currentTasks.map((task) => task.id === id ? { ...task, status } : task))
+      queryClient.setQueryData(activeListKey, (currentTasks = []) => moveTaskInList(currentTasks, id, status, targetIndex))
       return { previousTasks }
     },
     onError: (_error, _variables, context) => {

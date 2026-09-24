@@ -11,3 +11,13 @@ export const taskKeys = {
   lists: () => [...taskKeys.all, 'list'],
   list: (mode) => [...taskKeys.lists(), { mode }],
 }
+
+export const teamKeys = {
+  all: ['team'],
+  members: () => [...teamKeys.all, 'members'],
+}
+
+export const notificationKeys = {
+  all: ['notifications'],
+  list: () => [...notificationKeys.all, 'list'],
+}

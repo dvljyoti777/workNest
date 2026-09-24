@@ -1,7 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { teamService } from '../services/teamService'
-
-export const teamKeys = { all: ['team'], members: () => [...teamKeys.all, 'members'] }
+import { teamKeys } from './queryKeys'
 
 export function useTeamQuery() {
   return useQuery({ queryKey: teamKeys.members(), queryFn: () => teamService.getMembers() })

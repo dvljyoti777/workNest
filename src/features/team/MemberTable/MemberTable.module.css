@@ -7,3 +7,18 @@
 .member strong { font-size: .78rem; }.member small { color: var(--color-muted); font-size: .66rem; }
 .status { display: inline-flex; padding: .25rem .5rem; border-radius: 999px; font-size: .64rem; font-weight: 700; text-transform: capitalize; }
 .active { color: #027a48; background: #ecfdf3; }.invited { color: #b54708; background: #fffaeb; }
+@media (max-width: 640px) {
+  .wrapper { padding: 0 .75rem .75rem; overflow: visible; }
+  .wrapper table, .wrapper tbody, .wrapper tr, .wrapper td { display: block; width: 100%; }
+  .wrapper thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .wrapper tbody { display: grid; gap: .75rem; }
+  .wrapper tr { padding: .85rem; border: 1px solid var(--color-border); border-radius: .75rem; background: var(--color-surface); box-shadow: 0 3px 12px rgb(15 23 42 / 5%); }
+  .wrapper td { display: flex; min-width: 0; padding: .55rem 0; align-items: center; justify-content: space-between; gap: 1rem; border-top: 1px solid #edf0f4; text-align: right; }
+  .wrapper td:first-child { padding-top: 0; border-top: 0; }
+  .wrapper td:last-child { padding-bottom: 0; }
+  .wrapper td::before { content: attr(data-label); flex: 0 0 auto; color: var(--color-muted); font-size: .63rem; font-weight: 750; text-transform: uppercase; }
+  .wrapper td:first-child::before { display: none; }
+  .member { min-width: 0; text-align: left; }
+  .member > span { min-width: 0; }
+  .member small { overflow-wrap: anywhere; }
+}

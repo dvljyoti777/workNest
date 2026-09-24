@@ -2,6 +2,26 @@
 
 WorkNest is a React workspace dashboard prototype for project progress, recent activity, and team workload.
 
+## API-ready mode
+
+No OpenAPI/Swagger contract is currently present in this repository. The API paths below are therefore adapter defaults and must be checked against the backend contract before enabling API mode.
+
+Copy `.env.example` to `.env.local` and configure:
+
+```dotenv
+VITE_DATA_SOURCE=mock
+VITE_API_BASE_URL=http://localhost:8000/api
+```
+
+- `mock` keeps the in-memory demo services.
+- `api` routes the same service methods through the centralized `src/lib/apiClient.js`.
+- Components call TanStack Query hooks only; they never call `fetch` directly.
+- Bearer tokens come from the current `worknest_session`.
+- HTTP 401, 403, 422, and 500+ responses become separate error classes. A 401 clears the local session and notifies `AuthProvider`.
+- Response mappers validate required fields and normalize camelCase/snake_case responses.
+
+Adapter endpoint defaults: `/auth/login`, `/auth/logout`, `/dashboard`, `/projects`, `/tasks`, and `/team/members`. Update service adapters and mappers after reviewing the real Swagger contract; the page components and query hooks should remain unchanged.
+
 **Documentation updated:** 2026-09-16  
 **Current status:** Routed frontend demo with role-based fake authentication, project pages, and an in-memory task board. Backend and persistent project/task storage are not implemented.
 

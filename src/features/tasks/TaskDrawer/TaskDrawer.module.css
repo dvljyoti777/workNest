@@ -13,4 +13,4 @@
 .deleteButton { margin-right: auto; border: 0; color: #b42318; background: #fef3f2; }
 .cancelButton { border: 1px solid #d0d5dd; color: #344054; background: #fff; }
 .saveButton { border: 0; color: #fff; background: var(--color-primary); }
-@media (max-width: 480px) { .row { grid-template-columns: 1fr; } .drawer footer { flex-wrap: wrap; } }
+@media (max-width: 480px) { .drawer { padding: 1rem; }.row { grid-template-columns: 1fr; } .drawer input, .drawer textarea, .drawer select { font-size: 1rem; }.drawer footer { display: grid; grid-template-columns: 1fr 1fr; }.drawer footer button { min-height: 44px; }.deleteButton { grid-column: 1 / -1; } }

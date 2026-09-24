@@ -1,4 +1,6 @@
 import { useCallback, useMemo, useState } from 'react'
+import { closestCorners, DndContext, DragOverlay, KeyboardSensor, MouseSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core'
+import { sortableKeyboardCoordinates } from '@dnd-kit/sortable'
 import ResourceState from '../../../components/ui/ResourceState/ResourceState'
 import { useTaskMutations, useTasksQuery } from '../../../queries/taskQueries'
 import { useToast } from '../../../hooks/useToast'
@@ -14,19 +16,27 @@ const columns = [
 ]
 const emptyTasks = []
 
-function TaskBoard() {
+function TaskBoard({ projectId, projectName = 'All workspace tasks' }) {
   const [drawer, setDrawer] = useState(null)
   const [search, setSearch] = useState('')
   const [requestMode, setRequestMode] = useState('populated')
+  const [activeTaskId, setActiveTaskId] = useState(null)
   const { showToast } = useToast()
   const tasksQuery = useTasksQuery(requestMode)
   const mutations = useTaskMutations(requestMode)
-  const tasks = tasksQuery.data ?? emptyTasks
+  const allTasks = tasksQuery.data ?? emptyTasks
+  const tasks = projectId ? allTasks.filter((task) => task.projectId === projectId) : allTasks
   const selectedTask = drawer?.taskId ? tasks.find((task) => task.id === drawer.taskId) : null
+  const activeTask = activeTaskId ? tasks.find((task) => task.id === activeTaskId) : null
   const mutationsList = Object.values(mutations)
   const isSaving = mutationsList.some((mutation) => mutation.isPending)
   const mutationError = mutationsList.find((mutation) => mutation.error)?.error
   const moveTaskMutate = mutations.moveTask.mutate
+  const sensors = useSensors(
+    useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
+    useSensor(TouchSensor, { activationConstraint: { delay: 180, tolerance: 6 } }),
+    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
+  )
 
   const tasksByStatus = useMemo(() => {
     const grouped = Object.fromEntries(columns.map((column) => [column.id, []]))
@@ -37,9 +47,20 @@ function TaskBoard() {
 
   const openAddDrawer = useCallback((status) => setDrawer({ status }), [])
   const openEditDrawer = useCallback((taskId) => setDrawer({ taskId }), [])
-  const moveTask = useCallback((id, targetColumnIndex) => {
-    moveTaskMutate({ id, status: columns[targetColumnIndex].id })
+  const moveTask = useCallback((id, targetColumnIndex, targetIndex) => {
+    moveTaskMutate({ id, status: columns[targetColumnIndex].id, targetIndex })
   }, [moveTaskMutate])
+
+  const handleDragEnd = useCallback(({ active, over }) => {
+    setActiveTaskId(null)
+    if (!over || active.id === over.id) return
+    const overData = over.data.current
+    const targetStatus = overData?.status
+    if (!targetStatus) return
+    const targetColumnIndex = columns.findIndex((column) => column.id === targetStatus)
+    const targetIndex = overData.type === 'task' ? overData.index : tasksByStatus[targetStatus].length
+    moveTask(active.id, targetColumnIndex, targetIndex)
+  }, [moveTask, tasksByStatus])
 
   const saveTask = async (form) => {
     try {
@@ -47,7 +68,7 @@ function TaskBoard() {
         await mutations.updateTask.mutateAsync({ id: selectedTask.id, updates: form })
         showToast('Task updated successfully')
       } else {
-        await mutations.addTask.mutateAsync({ ...form, id: crypto.randomUUID() })
+        await mutations.addTask.mutateAsync({ ...form, projectId: projectId ?? form.projectId ?? '', id: crypto.randomUUID() })
         showToast('Task created successfully')
       }
       setDrawer(null)
@@ -68,7 +89,7 @@ function TaskBoard() {
 
   const retryPopulated = () => setRequestMode('populated')
 
-  return <><header className={styles.pageHeader}><div><p>Website Redesign</p><h1>Kanban board</h1><span>{tasks.length} tasks across four stages</span></div><div className={styles.headerActions}><button type="button" onClick={() => setRequestMode('empty')}>Empty</button><button type="button" onClick={() => setRequestMode('error')}>Error</button><button className={styles.primaryButton} type="button" onClick={() => openAddDrawer('backlog')}>+ Add task</button></div></header><div className={styles.toolbar}><label><span>Search tasks</span><input type="search" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search tasks…" /></label><button type="button" onClick={() => setSearch('')}>Clear filter</button></div>{mutationError && <div className={styles.actionError} role="alert">{mutationError.message}<button type="button" onClick={() => mutationsList.forEach((mutation) => mutation.reset())}>Dismiss</button></div>}{tasksQuery.isPending && <ResourceState type="loading" />}{tasksQuery.isError && <ResourceState type="error" title="Tasks unavailable" message={tasksQuery.error.message} onRetry={retryPopulated} />}{tasksQuery.isSuccess && tasks.length === 0 && <ResourceState type="empty" title="No tasks yet" message="Add your first task or reload the demo tasks." onRetry={retryPopulated} />}{tasksQuery.isSuccess && tasks.length > 0 && <div className={styles.board}>{columns.map((column, columnIndex) => <KanbanColumn key={column.id} column={column} columnIndex={columnIndex} tasks={tasksByStatus[column.id]} isSaving={isSaving} isMoving={mutations.moveTask.isPending} onAdd={openAddDrawer} onEdit={openEditDrawer} onMove={moveTask} />)}</div>}{drawer && <TaskDrawer key={selectedTask?.id ?? drawer.status} task={selectedTask} defaultStatus={drawer.status} onClose={() => setDrawer(null)} onSave={saveTask} onDelete={deleteTask} isSaving={isSaving} />}</>
+  return <><header className={styles.pageHeader}><div><p>{projectName}</p><h1>Kanban board</h1><span>{tasks.length} tasks across four stages</span></div><div className={styles.headerActions}><button type="button" onClick={() => setRequestMode('empty')}>Empty</button><button type="button" onClick={() => setRequestMode('error')}>Error</button><button className={styles.primaryButton} type="button" onClick={() => openAddDrawer('backlog')}>+ Add task</button></div></header><div className={styles.toolbar}><label><span>Search tasks</span><input type="search" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search tasks..." /></label><button type="button" onClick={() => setSearch('')}>Clear filter</button></div>{mutationError && <div className={styles.actionError} role="alert">{mutationError.message}<button type="button" onClick={() => mutationsList.forEach((mutation) => mutation.reset())}>Dismiss</button></div>}{tasksQuery.isPending && <ResourceState type="loading" />}{tasksQuery.isError && <ResourceState type="error" title="Tasks unavailable" message={tasksQuery.error.message} onRetry={retryPopulated} />}{tasksQuery.isSuccess && tasks.length === 0 && <ResourceState type="empty" title="No tasks yet" message="Add your first task or reload the demo tasks." onRetry={retryPopulated} />}{tasksQuery.isSuccess && tasks.length > 0 && <><p className={styles.dragHelp}>Drag a card from anywhere on its surface. Keyboard: focus the card, press Space, use arrow keys, then press Space again.</p><DndContext sensors={sensors} collisionDetection={closestCorners} onDragStart={({ active }) => setActiveTaskId(active.id)} onDragCancel={() => setActiveTaskId(null)} onDragEnd={handleDragEnd}><div className={styles.board}>{columns.map((column, columnIndex) => <KanbanColumn key={column.id} column={column} columnIndex={columnIndex} tasks={tasksByStatus[column.id]} isSaving={isSaving} isMoving={mutations.moveTask.isPending} onAdd={openAddDrawer} onEdit={openEditDrawer} onMove={moveTask} />)}</div><DragOverlay>{activeTask ? <div className={styles.dragOverlay}><span>{activeTask.priority}</span><strong>{activeTask.title}</strong></div> : null}</DragOverlay></DndContext></>}{drawer && <TaskDrawer key={selectedTask?.id ?? drawer.status} task={selectedTask} defaultStatus={drawer.status} onClose={() => setDrawer(null)} onSave={saveTask} onDelete={deleteTask} isSaving={isSaving} />}</>
 }
 
 export default TaskBoard

@@ -1,3 +1,5 @@
+import { moveTaskInList } from '../../lib/taskOrdering'
+
 export const taskActionTypes = {
   SET_TASKS: 'SET_TASKS',
   ADD_TASK: 'ADD_TASK',
@@ -24,7 +26,7 @@ export function taskReducer(state, action) {
     case taskActionTypes.MOVE_TASK:
       return {
         ...state,
-        tasks: state.tasks.map((task) => task.id === action.payload.id ? { ...task, status: action.payload.status } : task),
+        tasks: moveTaskInList(state.tasks, action.payload.id, action.payload.status, action.payload.targetIndex),
       }
     default:
       return state
